@@ -21,11 +21,6 @@ export default class Include extends React.Component {
     return false;
   }
   
-  render () {
-    // HTML to React (experimental)
-    return jsx._tranformHTML('<React.Fragment>' + this.html + '</React.Fragment>', this.props.scopes);
-  }
-  
   componentDidMount () {
     fetch(this.props.href)
       .then((res) => res.text())
@@ -44,5 +39,10 @@ export default class Include extends React.Component {
           this.setState({ updatedDate: Date.now() });
         });
     }
+  }
+  
+  render () {
+    // HTML to React (experimental)
+    return jsx._tranformHTML('<React.Fragment>' + this.html + '</React.Fragment>', this.props.scopes);
   }
 }

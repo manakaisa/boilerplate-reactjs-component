@@ -3,13 +3,21 @@ export default class Home extends React.Component {
     super(props);
     
     this.title = 'Home';
-    this.scopes = { '$ctrl': this };
+    
+    this.state = { scopes: { '$ctrl': this } };
+  }
+  
+  shouldComponentUpdate (nextProps, nextState) {
+    if (this.state.scopes !== nextState.scopes) {
+      return true;
+    }
+    return false;
   }
   
   render () {
     // JSX template literal (experimental)
     return jsx`
-      <mDOM.Include href="home.html" scopes=${this.scopes} />
+      <mDOM.Include href="home.html" scopes=${this.state.scopes} />
     `;
   }
 }

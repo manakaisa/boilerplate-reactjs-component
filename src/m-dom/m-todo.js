@@ -2,8 +2,9 @@ export default class Todo extends React.Component {
   constructor (props) {
     super(props);
     
+    this.maxID = 2;
+    
     this.state = {
-      maxID: 2,
       checklist: [
         { key: 1, label: 'foo', checked: true },
         { key: 2, label: 'bar', checked: false }
@@ -17,20 +18,28 @@ export default class Todo extends React.Component {
     this.handlePop = this.handlePop.bind(this);
   }
   
+  shouldComponentUpdate (nextProps, nextState) {
+    if (this.state.checklist !== nextState.checklist) {
+      return true;
+    }
+    if (this.state.todoText !== nextState.todoText) {
+      return true;
+    }
+    return false;
+  }
+  
   handleCheck (key, checked) {
     this.state.checklist.find(item => item.key === key).checked = checked;
-    this.setState({ checklist: [].concat(this.state.checklist) });
   }
   
   handleTodoText (value) {
-    this.setState({ todoText: value });
+    this.state.todoText = value;
   }
   
   handlePush () {
-    let nextID = this.state.maxID + 1;
+    this.maxID += 1;
     this.setState({
-      maxID: nextID,
-      checklist: this.state.checklist.concat([{ key: nextID, label: this.state.todoText, checked: false }]),
+      checklist: this.state.checklist.concat([{ key: this.maxID, label: this.state.todoText, checked: false }]),
       todoText: ''
     });
   }
