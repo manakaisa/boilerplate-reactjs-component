@@ -17,7 +17,7 @@ export default class Button extends React.Component {
   }
   
   render () {
-    // JS template literal (experimental)
+    // JSX template literal (experimental)
     return jsx`
       <button onClick=${this.handleClick}>${this.props.children}</button>
     `;

@@ -42,14 +42,14 @@ export default class Todo extends React.Component {
   }
   
   render () {
-    // JS template literal (experimental)
+    // JSX template literal (experimental)
     return jsx`
-      <React.Fragment>
+      <m-todo>
         <mDOM.Checklist checklist=${this.state.checklist} onCheck=${this.handleCheck} />
         <mDOM.Textbox value=${this.state.todoText} onChange=${this.handleTodoText} />
         <mDOM.Button onClick=${this.handlePush}>add</mDOM.Button>
         <mDOM.Button onClick=${this.handlePop}>del</mDOM.Button>
-      </React.Fragment>
+      </m-todo>
     `;
     
     /*

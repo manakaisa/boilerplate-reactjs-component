@@ -4,6 +4,10 @@
     "semi": ["error", "always"],
     "no-trailing-spaces": ["error", { "skipBlankLines": true }]
   },
+  "env": {
+    "browser": true,
+    "es6": true
+  },
   "globals": {
     "React": true,
     "ReactDOM": true,

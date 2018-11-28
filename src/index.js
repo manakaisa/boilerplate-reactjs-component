@@ -1,1 +1,3 @@
-ReactDOM.render(React.createElement(mDOM.Todo, null), document.getElementById('elmTodo'));
+ReactDOM.render(React.createElement(mDOM.Home, null), document.getElementById('elmView'));
+
+

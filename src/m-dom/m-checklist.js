@@ -20,7 +20,7 @@ export default class Checklist extends React.Component {
   }
   
   render () {
-    // JS template literal (experimental)
+    // JSX template literal (experimental)
     const elmLiList = this.props.checklist.map(item => {
       return jsx`
         <li key=${item.key}>

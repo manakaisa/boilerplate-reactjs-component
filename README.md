@@ -4,7 +4,8 @@ A Boilerplate for React component
 ## Supports
 - JSX
 - Minify
-- JS template literal (experimental)
+- JSX template literal (experimental)
+- "Include" component (experimental)
 
 ## Controlled component workflow
 ```

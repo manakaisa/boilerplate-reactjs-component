@@ -4,7 +4,7 @@ export default class Textbox extends React.Component {
     
     this.handleChange = this.handleChange.bind(this);
   }
-  
+
   shouldComponentUpdate (nextProps, nextState) {
     if (this.props.value !== nextProps.value) {
       return true;
@@ -20,7 +20,7 @@ export default class Textbox extends React.Component {
   }
   
   render () {
-    // JS template literal (experimental)
+    // JSX template literal (experimental)
     return jsx`
       <input type="text" value=${this.props.value} onChange=${this.handleChange} />
     `;
