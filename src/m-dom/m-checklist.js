@@ -2,11 +2,7 @@ export default class Checklist extends React.Component {
   constructor (props) {
     super(props);
     
-    this.checkedlist = {};
-    this.props.checklist.forEach(item => {
-      this.checkedlist[item.key] = item.checked;
-    });
-    
+    this.checklistState = JSON.parse(JSON.stringify(this.props.checklist));
     this.state = { updatedDate: Date.now() };
     
     this.handleChange = this.handleChange.bind(this);
@@ -27,26 +23,24 @@ export default class Checklist extends React.Component {
   
   componentDidUpdate (prevProps, prevState) {
     if (this.props.checklist !== prevProps.checklist) {
-      this.props.checklist.forEach(item => {
-        this.checkedlist[item.key] = item.checked;
-      });
+      this.checklistState = JSON.parse(JSON.stringify(this.props.checklist));
       this.setState({ updatedDate: Date.now() });
     }
   }
   
-  handleChange (e, item) {
-    this.checkedlist[item.key] = e.target.checked;
+  handleChange (e, changedItem) {
+    this.checklistState.find(item => item.key === changedItem.key).checked = e.target.checked;
     this.setState({ updatedDate: Date.now() });
     
-    this.props.onCheck(item.key, e.target.checked);
+    this.props.onCheck(changedItem.key, e.target.checked);
   }
   
   render () {
     // JSX template literal (experimental)
-    const elmLiList = this.props.checklist.map(item => {
+    const elmLiList = this.checklistState.map(item => {
       return jsx`
         <li key=${item.key}>
-          <input type="checkbox" value=${item.key} checked=${(this.checkedlist[item.key] || false)} onChange=${(e) => this.handleChange(e, item)} />
+          <input type="checkbox" value=${item.key} checked=${item.checked} onChange=${(e) => this.handleChange(e, item)} />
           ${item.label}
         </li>
       `;
@@ -59,10 +53,10 @@ export default class Checklist extends React.Component {
     
     /*
     // JSX
-    const elmLiList = this.props.checklist.map(item => {
+    const elmLiList = this.checklistState.map(item => {
       return (
         <li key={item.key}>
-          <input type="checkbox" value={item.key} checked={(this.checkedlist[item.key] || false)} onChange={(e) => this.handleChange(e, item)} />
+          <input type="checkbox" value={item.key} checked={item.checked} onChange={(e) => this.handleChange(e, item)} />
           {item.label}
         </li>
       );
@@ -76,11 +70,11 @@ export default class Checklist extends React.Component {
     
     /*
     // Native JS
-    const elmLiList = this.props.checklist.map(item => {
+    const elmLiList = this.checklistState.map(item => {
       return React.createElement(
         'li',
         { key: item.key },
-        React.createElement('input', { type: 'checkbox', value: item.key, checked: (this.checkedlist[item.key] || false), onChange: (e) => this.handleChange(e, item) }),
+        React.createElement('input', { type: 'checkbox', value: item.key, checked: item.checked, onChange: (e) => this.handleChange(e, item) }),
         item.label
       );
     });
