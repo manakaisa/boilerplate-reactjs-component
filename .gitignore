@@ -1,6 +1,9 @@
 # Logs
 *.log
 
+# Lock Files
+package-lock.json
+
 # VSCODE
 .vscode
 
